@@ -55,7 +55,7 @@ const navLinks: NavLink[] = [
       },
     ],
   },
-  { label: "School", href: "http://www.stanncatholicschool.net" },
+  { label: "School", href: "https://waitholdthis.github.io/stannslogin/" },
   {
     label: "Resources",
     href: "/news",
@@ -89,12 +89,12 @@ function DropdownItem({ child }: { child: NavChild }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="w-full flex items-center justify-between px-5 py-3 text-[var(--text-mid)] hover:bg-[var(--cream-mid)] hover:text-[var(--navy)] text-sm transition-colors duration-150 cursor-pointer whitespace-nowrap gap-4">
-        <a href={child.href} className="flex-1 text-left" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full flex items-center justify-between px-5 py-3 text-[var(--text-mid)] hover:bg-[var(--cream-mid)] hover:text-[var(--navy)] text-sm transition-colors duration-150 cursor-pointer whitespace-nowrap gap-4">
+        <a href={child.href} className="flex-1 text-left">
           {child.label}
         </a>
-        <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-      </button>
+        <ChevronRight className="w-3.5 h-3.5 shrink-0 pointer-events-none" />
+      </div>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -145,19 +145,26 @@ function MobileItem({
 
   return (
     <div className="border-b border-white/10">
-      <button
-        className="w-full flex items-center justify-between py-3 text-white/90 hover:text-[var(--gold-light)] text-lg transition-colors duration-150 cursor-pointer"
-        style={{ fontFamily: "'Cormorant Garamond', serif" }}
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-      >
-        <a href={link.href} onClick={(e) => { e.stopPropagation(); onClose(); }} className="flex-1 text-left">
+      <div className="w-full flex items-center justify-between py-3">
+        <a
+          href={link.href}
+          onClick={onClose}
+          className="flex-1 text-left text-white/90 hover:text-[var(--gold-light)] text-lg transition-colors duration-150"
+          style={{ fontFamily: "'Cormorant Garamond', serif" }}
+        >
           {link.label}
         </a>
-        <ChevronDown
-          className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-        />
-      </button>
+        <button
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label={`${open ? "Collapse" : "Expand"} ${link.label} menu`}
+          className="p-1 text-white/90 hover:text-[var(--gold-light)] transition-colors duration-150 cursor-pointer"
+        >
+          <ChevronDown
+            className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          />
+        </button>
+      </div>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -275,20 +282,20 @@ export default function Navbar() {
                   onMouseEnter={() => setOpenDropdown(link.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  <button
-                    className="flex items-center gap-1 px-3 py-2 text-white/85 hover:text-white text-sm tracking-wide transition-colors duration-200 cursor-pointer whitespace-nowrap"
-                    aria-expanded={openDropdown === link.label}
+                  <div
+                    className="flex items-center gap-1 px-3 py-2 text-white/85 hover:text-white text-sm tracking-wide transition-colors duration-200 whitespace-nowrap"
                     aria-haspopup="true"
+                    aria-expanded={openDropdown === link.label}
                   >
-                    <a href={link.href} className="hover:text-white" onClick={(e) => e.stopPropagation()}>
+                    <a href={link.href} className="hover:text-white">
                       {link.label}
                     </a>
                     <ChevronDown
-                      className={`w-3 h-3 shrink-0 transition-transform duration-200 ${
+                      className={`w-3 h-3 shrink-0 pointer-events-none transition-transform duration-200 ${
                         openDropdown === link.label ? "rotate-180" : ""
                       }`}
                     />
-                  </button>
+                  </div>
                   <AnimatePresence>
                     {openDropdown === link.label && (
                       <motion.div

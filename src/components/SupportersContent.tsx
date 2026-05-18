@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { MapPin, Phone, ExternalLink } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { MapPin, Phone, ExternalLink, X, Images } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const supporters = [
@@ -10,46 +11,55 @@ const supporters = [
     name: "Ann's Flower Shop",
     address: "5780 Ramsey St Ste 101, Fayetteville, NC 28311",
     phone: "910-488-4177",
+    photo: "/supporters/AnnsFlowerShop.jpg",
   },
   {
     name: "Carolina Specialties Inter.",
     address: "536 Ramsey St, Fayetteville, NC 28301",
     phone: "910-323-0718",
+    photo: "/supporters/CarolinaSpecialties.jpg",
   },
   {
     name: "Grilled Ginger Restaurant",
     address: "5052 Yadkin Rd Ste 101, Fayetteville, NC 28303",
     phone: "910-867-2227",
+    photo: "/supporters/GrilledGiner.jpg",
   },
   {
     name: "JTL Mold Services LLC",
     address: null,
     phone: "910-237-3519",
+    photo: "/supporters/JTLMold.jpg",
   },
   {
     name: "KW Fayetteville – Jennifer Tap",
     address: "639 Executive Pl Ste 100, Fayetteville, NC 28305",
     phone: "910-222-2800",
+    photo: "/supporters/JenniferTap.jpg",
   },
   {
     name: "Knights of Columbus",
     address: "365 N Cool Spring St, Fayetteville, NC 28301",
     phone: "910-860-1709",
+    photo: "/supporters/KnightsofColumbus.jpg",
   },
   {
     name: "Rogers & Breece Funeral Home",
     address: "500 Ramsey St, Fayetteville, NC 28301",
     phone: "910-483-2191",
+    photo: "/supporters/RogersandBreeceFuneralHome.jpg",
   },
   {
     name: "The Firehouse",
     address: "4021 Dunn Rd, Eastover, NC 28312",
     phone: "910-487-3473",
+    photo: "/supporters/TheFirehouse.jpg",
   },
   {
     name: "Wiseman Mortuary Inc.",
     address: "431 Cumberland St, Fayetteville, NC 28301",
     phone: "919-483-7111",
+    photo: "/supporters/WisemanMortuary.jpg",
   },
 ];
 
@@ -69,6 +79,19 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export default function SupportersContent() {
+  const [activePhoto, setActivePhoto] = useState<{ name: string; src: string } | null>(null);
+
+  useEffect(() => {
+    if (!activePhoto) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setActivePhoto(null); };
+    window.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [activePhoto]);
+
   return (
     <>
       {/* Page hero */}
@@ -152,17 +175,23 @@ export default function SupportersContent() {
                     style={{ background: "var(--gold)" }}
                   />
 
-                  <h3
-                    className="leading-tight"
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: "1.35rem",
-                      fontWeight: 500,
-                      color: "var(--navy)",
-                    }}
+                  <button
+                    onClick={() => setActivePhoto({ name: biz.name, src: biz.photo })}
+                    className="text-left leading-tight flex items-center gap-2 group/name cursor-pointer"
                   >
-                    {biz.name}
-                  </h3>
+                    <span
+                      style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: "1.35rem",
+                        fontWeight: 500,
+                        color: "var(--navy)",
+                      }}
+                      className="group-hover/name:underline underline-offset-2"
+                    >
+                      {biz.name}
+                    </span>
+                    <Images className="w-3.5 h-3.5 shrink-0 opacity-0 group-hover/name:opacity-100 transition-opacity duration-150" style={{ color: "var(--gold)" }} />
+                  </button>
 
                   <div className="flex flex-col gap-2.5 mt-auto">
                     {biz.address && (
@@ -214,6 +243,58 @@ export default function SupportersContent() {
           </div>
         </div>
       </section>
+
+      {/* Ad photo modal */}
+      <AnimatePresence>
+        {activePhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            style={{ background: "rgba(0,0,0,0.88)" }}
+            onClick={() => setActivePhoto(null)}
+          >
+            <button
+              className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
+              onClick={() => setActivePhoto(null)}
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col items-center gap-4 max-w-2xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p
+                className="text-white/70 text-xs tracking-[0.2em] uppercase text-center"
+                style={{ fontFamily: "'Cinzel', serif" }}
+              >
+                {activePhoto.name}
+              </p>
+              <div
+                className="relative w-full rounded-2xl overflow-hidden shadow-2xl"
+                style={{ maxHeight: "80vh" }}
+              >
+                <Image
+                  src={activePhoto.src}
+                  alt={activePhoto.name}
+                  width={800}
+                  height={600}
+                  className="w-full h-auto object-contain"
+                  style={{ maxHeight: "80vh" }}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Advertise CTA */}
       <section

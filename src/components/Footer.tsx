@@ -1,6 +1,7 @@
 "use client";
 
-import { MapPin, Phone, Clock, Cross, Mail } from "lucide-react";
+import { MapPin, Phone, Clock, Mail } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Mass Times", href: "#mass-times" },
@@ -23,11 +24,14 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center"
-                style={{ background: "var(--gold)" }}
-              >
-                <Cross className="w-4 h-4 text-white" strokeWidth={2.5} />
+              <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-[var(--gold)]/60 shrink-0">
+                <Image
+                  src="/StAnnChurch.webp"
+                  alt="St. Ann Catholic Church logo"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <p

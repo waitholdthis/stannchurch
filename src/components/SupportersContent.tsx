@@ -5,61 +5,62 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { MapPin, Phone, ExternalLink, X, Images } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { publicPath } from "@/lib/publicPath";
 
 const supporters = [
   {
     name: "Ann's Flower Shop",
     address: "5780 Ramsey St Ste 101, Fayetteville, NC 28311",
     phone: "910-488-4177",
-    photo: "/supporters/AnnsFlowerShop.jpg",
+    photo: publicPath("/supporters/AnnsFlowerShop.jpg"),
   },
   {
     name: "Carolina Specialties Inter.",
     address: "536 Ramsey St, Fayetteville, NC 28301",
     phone: "910-323-0718",
-    photo: "/supporters/CarolinaSpecialties.jpg",
+    photo: publicPath("/supporters/CarolinaSpecialties.jpg"),
   },
   {
     name: "Grilled Ginger Restaurant",
     address: "5052 Yadkin Rd Ste 101, Fayetteville, NC 28303",
     phone: "910-867-2227",
-    photo: "/supporters/GrilledGiner.jpg",
+    photo: publicPath("/supporters/GrilledGiner.jpg"),
   },
   {
     name: "JTL Mold Services LLC",
     address: null,
     phone: "910-237-3519",
-    photo: "/supporters/JTLMold.jpg",
+    photo: publicPath("/supporters/JTLMold.jpg"),
   },
   {
     name: "KW Fayetteville – Jennifer Tap",
     address: "639 Executive Pl Ste 100, Fayetteville, NC 28305",
     phone: "910-222-2800",
-    photo: "/supporters/JenniferTap.jpg",
+    photo: publicPath("/supporters/JenniferTap.jpg"),
   },
   {
     name: "Knights of Columbus",
     address: "365 N Cool Spring St, Fayetteville, NC 28301",
     phone: "910-860-1709",
-    photo: "/supporters/KnightsofColumbus.jpg",
+    photo: publicPath("/supporters/KnightsofColumbus.jpg"),
   },
   {
     name: "Rogers & Breece Funeral Home",
     address: "500 Ramsey St, Fayetteville, NC 28301",
     phone: "910-483-2191",
-    photo: "/supporters/RogersandBreeceFuneralHome.jpg",
+    photo: publicPath("/supporters/RogersandBreeceFuneralHome.jpg"),
   },
   {
     name: "The Firehouse",
     address: "4021 Dunn Rd, Eastover, NC 28312",
     phone: "910-487-3473",
-    photo: "/supporters/TheFirehouse.jpg",
+    photo: publicPath("/supporters/TheFirehouse.jpg"),
   },
   {
     name: "Wiseman Mortuary Inc.",
     address: "431 Cumberland St, Fayetteville, NC 28301",
     phone: "919-483-7111",
-    photo: "/supporters/WisemanMortuary.jpg",
+    photo: publicPath("/supporters/WisemanMortuary.jpg"),
   },
 ];
 
@@ -257,7 +258,7 @@ export default function SupportersContent() {
             onClick={() => setActivePhoto(null)}
           >
             <button
-              className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
+              className="absolute top-4 right-4 w-11 h-11 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
               onClick={() => setActivePhoto(null)}
               aria-label="Close"
             >

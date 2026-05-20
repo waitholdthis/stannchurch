@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Quote } from "lucide-react";
+import Link from "next/link";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -107,7 +108,7 @@ export default function Welcome() {
                 >
                   Register as a Parishioner
                 </a>
-                <a
+                <Link
                   href="/ministries"
                   className="inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-medium border transition-all duration-200"
                   style={{
@@ -118,7 +119,7 @@ export default function Welcome() {
                   }}
                 >
                   Our Ministries
-                </a>
+                </Link>
               </div>
             </FadeUp>
           </div>

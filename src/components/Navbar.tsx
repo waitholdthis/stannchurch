@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { publicPath } from "@/lib/publicPath";
 
 type NavLeaf = { label: string; href: string };
 type NavChild = { label: string; href: string; children?: NavLeaf[] };
@@ -65,21 +67,51 @@ const navLinks: NavLink[] = [
     ],
   },
   { label: "Bulletin Ads", href: "/supporters" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
+function isExternal(href: string) {
+  return href.startsWith("http");
+}
+
+function NavA({
+  href,
+  className,
+  onClick,
+  children,
+}: {
+  href: string;
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  if (isExternal(href)) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
 // ── Desktop dropdown item (handles optional flyout for nested children) ──────
-function DropdownItem({ child }: { child: NavChild }) {
+function DropdownItem({ child, onClose }: { child: NavChild; onClose?: () => void }) {
   const [open, setOpen] = useState(false);
 
   if (!child.children) {
     return (
-      <a
+      <NavA
         href={child.href}
         className="block px-5 py-3 text-[var(--text-mid)] hover:bg-[var(--cream-mid)] hover:text-[var(--navy)] text-sm transition-colors duration-150 whitespace-nowrap"
+        onClick={onClose}
       >
         {child.label}
-      </a>
+      </NavA>
     );
   }
 
@@ -90,9 +122,9 @@ function DropdownItem({ child }: { child: NavChild }) {
       onMouseLeave={() => setOpen(false)}
     >
       <div className="w-full flex items-center justify-between px-5 py-3 text-[var(--text-mid)] hover:bg-[var(--cream-mid)] hover:text-[var(--navy)] text-sm transition-colors duration-150 cursor-pointer whitespace-nowrap gap-4">
-        <a href={child.href} className="flex-1 text-left">
+        <NavA href={child.href} className="flex-1 text-left" onClick={onClose}>
           {child.label}
-        </a>
+        </NavA>
         <ChevronRight className="w-3.5 h-3.5 shrink-0 pointer-events-none" />
       </div>
       <AnimatePresence>
@@ -105,13 +137,14 @@ function DropdownItem({ child }: { child: NavChild }) {
             className="absolute top-0 left-full ml-1 min-w-52 bg-white rounded-xl shadow-xl shadow-black/10 border border-[var(--border)] overflow-hidden"
           >
             {child.children.map((leaf) => (
-              <a
+              <NavA
                 key={leaf.label}
                 href={leaf.href}
                 className="block px-5 py-3 text-[var(--text-mid)] hover:bg-[var(--cream-mid)] hover:text-[var(--navy)] text-sm transition-colors duration-150 whitespace-nowrap"
+                onClick={onClose}
               >
                 {leaf.label}
-              </a>
+              </NavA>
             ))}
           </motion.div>
         )}
@@ -132,28 +165,26 @@ function MobileItem({
 
   if (!link.children) {
     return (
-      <a
+      <NavA
         href={link.href}
         onClick={onClose}
         className="block py-3 text-white/90 hover:text-[var(--gold-light)] text-lg border-b border-white/10 transition-colors duration-150"
-        style={{ fontFamily: "'Cormorant Garamond', serif" }}
       >
         {link.label}
-      </a>
+      </NavA>
     );
   }
 
   return (
     <div className="border-b border-white/10">
       <div className="w-full flex items-center justify-between py-3">
-        <a
+        <NavA
           href={link.href}
           onClick={onClose}
           className="flex-1 text-left text-white/90 hover:text-[var(--gold-light)] text-lg transition-colors duration-150"
-          style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           {link.label}
-        </a>
+        </NavA>
         <button
           onClick={() => setOpen(!open)}
           aria-expanded={open}
@@ -177,24 +208,24 @@ function MobileItem({
             <div className="pl-4 pb-2">
               {link.children.map((child) => (
                 <div key={child.label}>
-                  <a
+                  <NavA
                     href={child.href}
                     onClick={onClose}
                     className="block py-2 text-white/60 hover:text-white text-sm transition-colors duration-150"
                   >
                     {child.label}
-                  </a>
+                  </NavA>
                   {child.children && (
                     <div className="pl-4">
                       {child.children.map((leaf) => (
-                        <a
+                        <NavA
                           key={leaf.label}
                           href={leaf.href}
                           onClick={onClose}
                           className="block py-1.5 text-white/40 hover:text-white/80 text-xs transition-colors duration-150"
                         >
                           {leaf.label}
-                        </a>
+                        </NavA>
                       ))}
                     </div>
                   )}
@@ -222,13 +253,6 @@ export default function Navbar() {
 
   return (
     <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--navy)] focus:rounded"
-      >
-        Skip to main content
-      </a>
-
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -241,14 +265,14 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <a
+          <Link
             href="/"
             className="flex items-center gap-3 shrink-0"
             aria-label="St. Ann Catholic Church — Home"
           >
             <div className="w-11 h-11 rounded-full overflow-hidden shadow-md ring-2 ring-[var(--gold)]/60 shrink-0">
               <Image
-                src="/StAnnChurch.webp"
+                src={publicPath("/StAnnChurch.webp")}
                 alt="St. Ann Catholic Church logo"
                 width={44}
                 height={44}
@@ -267,7 +291,7 @@ export default function Navbar() {
                 Catholic Church
               </p>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav
@@ -287,9 +311,9 @@ export default function Navbar() {
                     aria-haspopup="true"
                     aria-expanded={openDropdown === link.label}
                   >
-                    <a href={link.href} className="hover:text-white">
+                    <NavA href={link.href} className="hover:text-white">
                       {link.label}
-                    </a>
+                    </NavA>
                     <ChevronDown
                       className={`w-3 h-3 shrink-0 pointer-events-none transition-transform duration-200 ${
                         openDropdown === link.label ? "rotate-180" : ""
@@ -306,32 +330,36 @@ export default function Navbar() {
                         className="absolute top-full left-0 mt-1 min-w-52 bg-white rounded-xl shadow-xl shadow-black/10 border border-[var(--border)] overflow-visible py-1"
                       >
                         {link.children.map((child) => (
-                          <DropdownItem key={child.label} child={child} />
+                          <DropdownItem
+                            key={child.label}
+                            child={child}
+                            onClose={() => setOpenDropdown(null)}
+                          />
                         ))}
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
               ) : (
-                <a
+                <NavA
                   key={link.label}
                   href={link.href}
                   className="px-3 py-2 text-white/85 hover:text-white text-sm tracking-wide transition-colors duration-200 whitespace-nowrap"
                 >
                   {link.label}
-                </a>
+                </NavA>
               )
             )}
           </nav>
 
           {/* CTA */}
-          <a
-            href="#give"
+          <Link
+            href="/#give"
             className="hidden xl:inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--gold)] hover:bg-[var(--gold-light)] text-white text-sm font-medium rounded-full transition-colors duration-200 shadow-md shrink-0"
             style={{ fontFamily: "'Cinzel', serif" }}
           >
             Give Online
-          </a>
+          </Link>
 
           {/* Mobile menu button */}
           <button
@@ -363,14 +391,14 @@ export default function Navbar() {
                   onClose={() => setMobileOpen(false)}
                 />
               ))}
-              <a
-                href="#give"
+              <Link
+                href="/#give"
                 onClick={() => setMobileOpen(false)}
                 className="mt-6 block text-center py-3 bg-[var(--gold)] hover:bg-[var(--gold-light)] text-white rounded-full font-medium transition-colors duration-200"
                 style={{ fontFamily: "'Cinzel', serif" }}
               >
                 Give Online
-              </a>
+              </Link>
             </nav>
           </motion.div>
         )}

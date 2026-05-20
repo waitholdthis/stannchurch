@@ -124,7 +124,7 @@ export default function PublicationsContent() {
                 {!iframeError ? (
                   <div
                     className="rounded-2xl overflow-hidden border shadow-sm"
-                    style={{ borderColor: "var(--border)", height: "700px" }}
+                    style={{ borderColor: "var(--border)", height: "clamp(420px, 70vh, 700px)" }}
                   >
                     <iframe
                       src={BULLETIN_URL}

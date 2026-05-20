@@ -3,32 +3,33 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { publicPath } from "@/lib/publicPath";
 
 const staff = [
   {
     name: "Father Matthew Nwafor",
     role: "Pastor",
-    photo: "/staff/father-matthew-nwafor.jpg",
+    photo: publicPath("/staff/father-matthew-nwafor.jpg"),
   },
   {
     name: "Deacon Gary Stemple",
     role: "Deacon",
-    photo: "/staff/deacon-gary-stemple.jpg",
+    photo: publicPath("/staff/deacon-gary-stemple.jpg"),
   },
   {
     name: "Antony Bishop",
     role: "Director of Religious Education",
-    photo: "/staff/antony-bishop.jpg",
+    photo: publicPath("/staff/antony-bishop.jpg"),
   },
   {
     name: "Lee Pittman",
     role: "School Principal",
-    photo: "/staff/lee-pittman.webp",
+    photo: publicPath("/staff/lee-pittman.webp"),
   },
   {
     name: "Pok-Hui Folsom",
     role: "Bookkeeper",
-    photo: "/staff/pok-hui-folsom.jpg",
+    photo: publicPath("/staff/pok-hui-folsom.jpg"),
   },
 ];
 

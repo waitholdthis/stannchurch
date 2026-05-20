@@ -149,7 +149,7 @@ export default function EventsContent() {
             <div className="flex items-center justify-between mb-6">
               <button
                 onClick={prev}
-                className="w-10 h-10 rounded-full flex items-center justify-center border transition-colors duration-150 hover:bg-[var(--cream-mid)] cursor-pointer"
+                className="w-11 h-11 rounded-full flex items-center justify-center border transition-colors duration-150 hover:bg-[var(--cream-mid)] cursor-pointer"
                 style={{ borderColor: "var(--border)" }}
                 aria-label="Previous month"
               >
@@ -167,13 +167,17 @@ export default function EventsContent() {
               </h2>
               <button
                 onClick={next}
-                className="w-10 h-10 rounded-full flex items-center justify-center border transition-colors duration-150 hover:bg-[var(--cream-mid)] cursor-pointer"
+                className="w-11 h-11 rounded-full flex items-center justify-center border transition-colors duration-150 hover:bg-[var(--cream-mid)] cursor-pointer"
                 style={{ borderColor: "var(--border)" }}
                 aria-label="Next month"
               >
                 <ChevronRight className="w-4 h-4" style={{ color: "var(--navy)" }} />
               </button>
             </div>
+
+            {/* Scrollable calendar — horizontal scroll on small screens */}
+            <div className="overflow-x-auto -mx-6 sm:mx-0">
+              <div className="min-w-[560px] px-6 sm:px-0">
 
             {/* Day-of-week headers */}
             <div className="grid grid-cols-7 mb-1">
@@ -199,9 +203,9 @@ export default function EventsContent() {
                 return (
                   <div
                     key={idx}
-                    className="border-b border-r p-3 flex flex-col gap-1.5"
+                    className="border-b border-r p-2 sm:p-3 flex flex-col gap-1"
                     style={{
-                      minHeight: "140px",
+                      minHeight: "110px",
                       borderColor: "var(--border)",
                       background: day
                         ? isToday(day)
@@ -238,6 +242,9 @@ export default function EventsContent() {
                 );
               })}
             </div>
+
+              </div>{/* end min-w inner */}
+            </div>{/* end overflow-x-auto */}
 
             {/* Legend */}
             <div className="mt-5 flex flex-wrap gap-3">

@@ -2,6 +2,7 @@
 
 import { MapPin, Phone, Clock, Mail } from "lucide-react";
 import Image from "next/image";
+import { publicPath } from "@/lib/publicPath";
 
 const navLinks = [
   { label: "Mass Times", href: "#mass-times" },
@@ -26,7 +27,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-5">
               <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-[var(--gold)]/60 shrink-0">
                 <Image
-                  src="/StAnnChurch.webp"
+                  src={publicPath("/StAnnChurch.webp")}
                   alt="St. Ann Catholic Church logo"
                   width={36}
                   height={36}

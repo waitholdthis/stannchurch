@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import { publicPath } from "@/lib/publicPath";
 
 export default function Hero() {
   return (
@@ -12,7 +13,7 @@ export default function Hero() {
     >
       {/* Full-bleed church photograph */}
       <Image
-        src="/st-ann-fayetteville.jpg"
+        src={publicPath("/st-ann-fayetteville.jpg")}
         alt="St. Ann Catholic Church, Fayetteville NC"
         fill
         priority
@@ -46,7 +47,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.35 }}
           className="mb-6"
         >
           <span
@@ -64,7 +65,7 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
+          transition={{ duration: 0.35, delay: 0.07 }}
           className="text-white mb-6 leading-tight"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
@@ -89,7 +90,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.35, delay: 0.13 }}
           className="text-white/70 text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           style={{ fontFamily: "'Crimson Pro', serif" }}
         >
@@ -100,7 +101,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.65 }}
+          transition={{ duration: 0.35, delay: 0.18 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <a
@@ -123,7 +124,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.35, delay: 0.22 }}
           className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto"
         >
           {[
@@ -152,7 +153,7 @@ export default function Hero() {
         aria-label="Scroll to Mass Times"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 0.3 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/40 hover:text-white/80 transition-colors duration-200 cursor-pointer"
       >
         <motion.div

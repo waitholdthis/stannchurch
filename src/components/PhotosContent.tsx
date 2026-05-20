@@ -712,7 +712,7 @@ export default function PhotosContent() {
           >
             {/* Close */}
             <button
-              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
+              className="absolute top-4 right-4 z-10 w-11 h-11 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
               onClick={() => setLightboxIdx(null)}
               aria-label="Close lightbox"
             >
@@ -730,7 +730,7 @@ export default function PhotosContent() {
             {/* Prev */}
             {lightboxIdx > 0 && (
               <button
-                className="absolute left-3 z-10 w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
+                className="absolute left-2 sm:left-4 z-10 w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
                   setLightboxIdx((i) => (i !== null && i > 0 ? i - 1 : i));
@@ -744,7 +744,7 @@ export default function PhotosContent() {
             {/* Next */}
             {lightboxIdx < activeAlbum.photos.length - 1 && (
               <button
-                className="absolute right-3 z-10 w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
+                className="absolute right-2 sm:right-4 z-10 w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150 cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
                   setLightboxIdx((i) =>

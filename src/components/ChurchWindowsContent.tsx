@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { publicPath } from "@/lib/publicPath";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -100,7 +101,7 @@ type AdditionalWindow = {
 const additionalWindows: AdditionalWindow[] = [
   {
     title: "Reconciliation Room",
-    images: null,
+    images: [publicPath("/ReconciliationRoom.jpeg")],
     panels: [
       { side: "Left", desc: "A Eucharist medallion, representing the source and summit of Christian life." },
       { side: "Right", desc: "\"Lamb of God\" medallion with the Empty Tomb and butterfly — symbols of the Resurrection and new life in Christ." },
@@ -355,7 +356,7 @@ export default function ChurchWindowsContent() {
                   style={{ borderColor: "var(--border)", background: "var(--cream)" }}
                 >
                   {/* Image area */}
-                  {aw.images ? (
+                  {aw.images && (
                     <div
                       className="w-full flex gap-2 p-4"
                       style={{ background: "var(--navy)" }}
@@ -364,29 +365,17 @@ export default function ChurchWindowsContent() {
                         <div
                           key={idx}
                           className="relative flex-1"
-                          style={{ aspectRatio: "1/2" }}
+                          style={{ aspectRatio: aw.images!.length === 1 ? "4/3" : "1/2" }}
                         >
                           <Image
                             src={src}
-                            alt={`${aw.title} panel ${idx + 1}`}
+                            alt={aw.images!.length === 1 ? `${aw.title} windows` : `${aw.title} panel ${idx + 1}`}
                             fill
-                            className="object-contain"
-                            sizes="25vw"
+                            className="object-cover object-center"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                           />
                         </div>
                       ))}
-                    </div>
-                  ) : (
-                    <div
-                      className="w-full flex items-center justify-center py-16 px-8"
-                      style={{ background: "var(--navy)" }}
-                    >
-                      <p
-                        className="text-center italic"
-                        style={{ fontFamily: "'Cormorant Garamond', serif", color: "rgba(255,255,255,0.4)", fontSize: "1rem" }}
-                      >
-                        Reconciliation Room
-                      </p>
                     </div>
                   )}
                   {/* Text content */}

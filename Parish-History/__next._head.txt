@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[55198,["/stannchurch/_next/static/chunks/0eb.q8mat~0tj.js","/stannchurch/_next/static/chunks/0gyyk3dd.m4o8.js"],"ViewportBoundary"]
+3:I[55198,["/stannchurch/_next/static/chunks/0eb.q8mat~0tj.js","/stannchurch/_next/static/chunks/0gyyk3dd.m4o8.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[25519,["/stannchurch/_next/static/chunks/0eb.q8mat~0tj.js","/stannchurch/_next/static/chunks/0gyyk3dd.m4o8.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Parish History — St. Ann Catholic Church"}],["$","meta","1",{"name":"description","content":"Discover the rich history of St. Ann Catholic Church in Fayetteville, NC — from its founding in 1939 in a humble barbershop to its growth as a vibrant Catholic community."}],["$","link","2",{"rel":"icon","href":"/stannchurch/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L5","3",{}]]}]}]}],null]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"A31lwFWQRXXMlqW3_akEy"}

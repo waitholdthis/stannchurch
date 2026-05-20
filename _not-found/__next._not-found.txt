@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[12044,["/stannchurch/_next/static/chunks/0eb.q8mat~0tj.js","/stannchurch/_next/static/chunks/0gyyk3dd.m4o8.js"],"default"]
+3:I[72971,["/stannchurch/_next/static/chunks/0eb.q8mat~0tj.js","/stannchurch/_next/static/chunks/0gyyk3dd.m4o8.js"],"default"]
+4:[]
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"A31lwFWQRXXMlqW3_akEy"}

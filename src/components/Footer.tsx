@@ -176,7 +176,15 @@ export default function Footer() {
             className="text-white/30 text-sm"
             style={{ fontFamily: "'Crimson Pro', serif" }}
           >
-            Website Created by Tootie Designs LLC
+            Website Created by{" "}
+            <a
+              href="https://tootiedesigns.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--gold-light)] underline underline-offset-2 transition-colors duration-150"
+            >
+              Tootie Designs LLC
+            </a>
           </p>
           <p
             className="text-white/20 text-xs tracking-widest uppercase"

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Globe, BookOpen, Newspaper, FileText, ExternalLink, Phone, Mail } from "lucide-react";
+import { Globe, BookOpen, Newspaper, FileText, ExternalLink, Phone, Mail, Plane } from "lucide-react";
 import Link from "next/link";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -82,6 +82,13 @@ const parishResources = [
     desc: "Local businesses that support our parish by advertising in the bulletin.",
     href: "/supporters",
     external: false,
+  },
+  {
+    icon: Plane,
+    label: "Find Mass Times While Traveling",
+    desc: "Away from home? Find Catholic Mass times, confession schedules, and churches anywhere you travel.",
+    href: "https://masstimes.org/",
+    external: true,
   },
 ];
 
@@ -309,11 +316,13 @@ export default function ResourcesContent() {
             </div>
           </FadeUp>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {parishResources.map((res, i) => (
               <FadeUp key={res.label} delay={0.07 * i}>
                 <Link
                   href={res.href}
+                  target={res.external ? "_blank" : undefined}
+                  rel={res.external ? "noopener noreferrer" : undefined}
                   className="group flex flex-col gap-4 rounded-2xl border p-7 h-full transition-all duration-300 hover:-translate-y-1"
                   style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.05)" }}
                 >

@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { ChevronLeft, ChevronRight, Clock, CalendarDays, Phone, Mail } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, CalendarDays, Phone, Mail, Megaphone } from "lucide-react";
 import Link from "next/link";
+import { announcements } from "./announcements-data";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -32,7 +33,7 @@ const weeklyEvents: Record<number, { time: string; title: string; note?: string 
     { time: "12:15 PM", title: "Mass" },
     { time: "12:45 PM", title: "Adoration & Benediction", note: "Follows daily Mass" },
   ],
-  4: [{ time: "9:00 AM", title: "Mass" }],
+  4: [{ time: "9:00 AM", title: "Mass", note: "School Mass during the school year; 12:15 PM in June & July" }],
   5: [{ time: "12:15 PM", title: "Mass" }],
   6: [
     { time: "4:00 PM", title: "Confessions" },
@@ -140,6 +141,34 @@ export default function EventsContent() {
           </motion.div>
         </div>
       </section>
+
+      {/* Announcements / schedule changes */}
+      {announcements.length > 0 && (
+        <section className="pt-16 px-6" style={{ background: "var(--cream)" }} aria-label="Schedule announcements">
+          <div className="max-w-7xl mx-auto flex flex-col gap-3">
+            {announcements.map((a) => (
+              <div
+                key={a.title}
+                className="rounded-xl border px-5 py-4 flex items-start gap-4"
+                style={{ borderColor: "var(--border)", background: "var(--gold-pale)" }}
+              >
+                <Megaphone className="w-4 h-4 mt-1 shrink-0" style={{ color: "var(--gold)" }} />
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ fontFamily: "'Crimson Pro', serif", color: "var(--text-mid)", fontSize: "1rem" }}
+                >
+                  <span style={{ fontFamily: "'Cinzel', serif", color: "var(--navy)", fontSize: "0.78rem", letterSpacing: "0.06em" }}>
+                    {a.title}
+                    {a.date ? ` — ${a.date}` : ""}
+                  </span>
+                  <br />
+                  {a.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Calendar */}
       <section className="py-20 px-6" style={{ background: "var(--cream)" }}>
@@ -290,7 +319,7 @@ export default function EventsContent() {
               { day: "Monday",    items: ["12:15 PM — Communion Service"] },
               { day: "Tuesday",   items: ["12:15 PM — Mass"] },
               { day: "Wednesday", items: ["12:15 PM — Mass", "12:45 PM — Adoration & Benediction"] },
-              { day: "Thursday",  items: ["9:00 AM — Mass"] },
+              { day: "Thursday",  items: ["9:00 AM — School Mass (school year)", "12:15 PM — Mass (June – July)"] },
               { day: "Friday",    items: ["12:15 PM — Mass"] },
               { day: "Saturday",  items: ["4:00 PM — Confessions", "5:00 PM — Vigil Mass"] },
             ].map(({ day, items }, i) => (

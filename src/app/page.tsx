@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MassTimes from "@/components/MassTimes";
+import Announcements from "@/components/Announcements";
 import Welcome from "@/components/Welcome";
 import School from "@/components/School";
 import Staff from "@/components/Staff";
@@ -17,6 +18,7 @@ export default function Home() {
       <main id="main">
         <Hero />
         <MassTimes />
+        <Announcements />
         <Welcome />
         <School />
         <Staff />

@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "St. Ann Catholic Church — Fayetteville, NC",
   description:
     "A vibrant, growing, and engaged Catholic community in Fayetteville, NC. Join us for Mass, Faith Formation, and parish life.",
+  referrer: "strict-origin-when-cross-origin",
 };
 
 export default function RootLayout({

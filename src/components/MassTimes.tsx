@@ -9,7 +9,8 @@ const weekdayMasses = [
   { day: "Monday", service: "Communion Service", time: "12:15 PM" },
   { day: "Tuesday", service: "Mass", time: "12:15 PM" },
   { day: "Wednesday", service: "Mass", time: "12:15 PM" },
-  { day: "Thursday", service: "Mass", time: "9:00 AM" },
+  { day: "Thursday", service: "School Mass (school year)", time: "9:00 AM" },
+  { day: "Thursday", service: "Mass (June – July)", time: "12:15 PM" },
   { day: "Friday", service: "Mass", time: "12:15 PM" },
 ];
 
@@ -87,7 +88,7 @@ export default function MassTimes() {
               </div>
               <div className="px-8 py-4 divide-y divide-white/10">
                 {weekdayMasses.map((m) => (
-                  <div key={m.day} className="py-4 flex justify-between items-center">
+                  <div key={`${m.day}-${m.time}`} className="py-4 flex justify-between items-center">
                     <div>
                       <p
                         className="text-white font-medium"
@@ -175,7 +176,9 @@ export default function MassTimes() {
                     Sunday 11am on Facebook
                   </p>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/StAnnFayettevilleNorthCarolina"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-block mt-2 text-[var(--gold-light)] text-sm hover:text-white transition-colors duration-150 underline underline-offset-2"
                   >
                     Watch Live →

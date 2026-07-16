@@ -67,7 +67,9 @@ export default function Give() {
             or small — makes a real difference in our community.
           </p>
           <a
-            href="#"
+            href="https://stanncatholicchurch.weshareonline.org/ws/opportunities"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-9 py-4 rounded-full text-white font-medium transition-all duration-200 shadow-lg group"
             style={{
               background: "var(--navy)",

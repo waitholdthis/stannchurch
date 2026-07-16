@@ -23,7 +23,9 @@ import {
   Phone,
   Mail,
   ExternalLink,
+  Camera,
 } from "lucide-react";
+import { publicPath } from "@/lib/publicPath";
 
 type ContactInfo = {
   name?: string;
@@ -38,6 +40,8 @@ type Entry = {
   desc: string;
   contact: ContactInfo;
   note?: string;
+  /** Path under /public, e.g. "/ministries/altar-servers.jpg". Shows a placeholder until set. */
+  image?: string;
 };
 
 const ministries: Entry[] = [
@@ -165,13 +169,54 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   );
 }
 
-function EntryCard({ entry, delay }: { entry: Entry; delay: number }) {
+function PhotoSlot({ entry }: { entry: Entry }) {
+  if (entry.image) {
+    return (
+      <div className="relative w-full aspect-[3/2] overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={publicPath(entry.image)}
+          alt={entry.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+      </div>
+    );
+  }
+  return (
+    <div
+      className="relative w-full aspect-[3/2] flex flex-col items-center justify-center gap-2 border-b"
+      style={{
+        borderColor: "var(--border)",
+        background:
+          "linear-gradient(135deg, var(--gold-pale) 0%, var(--cream-mid) 60%, var(--cream) 100%)",
+      }}
+      aria-hidden="true"
+    >
+      <div
+        className="w-11 h-11 rounded-full flex items-center justify-center"
+        style={{ background: "rgba(184,146,42,0.15)", border: "1px solid rgba(184,146,42,0.3)" }}
+      >
+        <Camera className="w-5 h-5" style={{ color: "var(--gold)" }} />
+      </div>
+      <span
+        className="text-[0.65rem] tracking-[0.2em] uppercase"
+        style={{ fontFamily: "'Cinzel', serif", color: "var(--gold)" }}
+      >
+        Photo Coming Soon
+      </span>
+    </div>
+  );
+}
+
+function EntryCard({ entry, delay, showPhoto = false }: { entry: Entry; delay: number; showPhoto?: boolean }) {
   return (
     <FadeUp delay={delay}>
       <div
         className="group rounded-2xl border flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden h-full"
         style={{ background: "var(--cream)", borderColor: "var(--border)" }}
       >
+        {showPhoto && <PhotoSlot entry={entry} />}
+
         {/* Card header */}
         <div className="p-7 flex-1">
           <div
@@ -322,7 +367,7 @@ export default function Ministries() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {ministries.map((m, i) => (
-              <EntryCard key={m.title} entry={m} delay={0.05 * i} />
+              <EntryCard key={m.title} entry={m} delay={0.05 * i} showPhoto />
             ))}
           </div>
         </div>
@@ -338,7 +383,7 @@ export default function Ministries() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {organizations.map((o, i) => (
-              <EntryCard key={o.title} entry={o} delay={0.05 * i} />
+              <EntryCard key={o.title} entry={o} delay={0.05 * i} showPhoto />
             ))}
           </div>
         </div>

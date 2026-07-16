@@ -62,12 +62,27 @@ const programs = [
   },
 ];
 
-const resources = [
+const resources: {
+  icon: React.ElementType;
+  label: string;
+  desc: string;
+  href: string | null;
+  linkLabel?: string;
+  steps?: string[];
+}[] = [
   {
     icon: Monitor,
     label: "FORMED",
-    desc: "Access Bishop Robert Barron's Catholicism series and hundreds of other educational programs, movies, and audio content through our parish's FORMED subscription.",
-    href: "https://formed.org/",
+    desc: "Thousands of Catholic video-based study programs, movies, documentaries, audio talks, and audio books for adults, kids, teens, families, singles, and couples — free through our parish's subscription.",
+    href: "https://formed.org/signup",
+    linkLabel: "Sign Up for FORMED",
+    steps: [
+      "Go to formed.org/signup",
+      'Type "Fayetteville" in the parish search box',
+      'Select "St Ann — 357 N. Cool Spring St"',
+      "Register with your name and email address",
+      "Check your email for a link to begin using FORMED",
+    ],
   },
   {
     icon: Headphones,
@@ -352,6 +367,21 @@ export default function FaithFormationContent() {
                   >
                     {res.desc}
                   </p>
+                  {res.steps && (
+                    <ol
+                      className="flex flex-col gap-1.5 list-decimal pl-5"
+                      style={{
+                        fontFamily: "'Crimson Pro', serif",
+                        fontSize: "0.98rem",
+                        color: "rgba(255,255,255,0.7)",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {res.steps.map((step) => (
+                        <li key={step}>{step}</li>
+                      ))}
+                    </ol>
+                  )}
                   {res.href && (
                     <a
                       href={res.href}
@@ -361,7 +391,7 @@ export default function FaithFormationContent() {
                       style={{ fontFamily: "'Cinzel', serif", color: "var(--gold-light)", letterSpacing: "0.06em" }}
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
-                      Visit FORMED
+                      {res.linkLabel ?? "Visit Website"}
                     </a>
                   )}
                 </div>

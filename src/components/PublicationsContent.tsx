@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { BookOpen, ExternalLink, Bell, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -23,17 +23,57 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 const BULLETIN_URL =
   "https://parishesonline.com/publication-page/the-catholic-community-of-st-ann?selectedPublication=https://container.parishesonline.com/bulletins/";
 
-const recentBulletins = [
-  { date: "May 17, 2026", label: "Sixth Sunday of Easter" },
-  { date: "May 10, 2026", label: "Fifth Sunday of Easter" },
-  { date: "May 3, 2026",  label: "Fourth Sunday of Easter" },
-  { date: "April 26, 2026", label: "Third Sunday of Easter" },
-  { date: "April 19, 2026", label: "Second Sunday of Easter" },
-  { date: "April 12, 2026", label: "Easter Sunday" },
-];
+const PUBLICATION_PAGE_URL =
+  "https://parishesonline.com/publication-page/the-catholic-community-of-st-ann";
+
+const SUBSCRIBE_URL =
+  "https://parishesonline.com/organization/the-catholic-community-of-st-ann/subscribe";
+
+// ParishesOnline (LPi) public API — same one their publication page uses.
+// Organization ID is St. Ann's salesforce_id on ParishesOnline.
+const PARISHES_ONLINE_API =
+  "https://f2141mdwk2.execute-api.us-east-1.amazonaws.com/prod/organizations/0018000000Qc0AkAAJ/publications?limit=7&type=Church";
+
+type Bulletin = { date: string; label: string; href: string };
+
+function formatPublishDate(publishDate: string): string {
+  const [year, month, day] = publishDate.slice(0, 10).split("-").map(Number);
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+  return `${monthNames[month - 1]} ${day}, ${year}`;
+}
+
+function useRecentBulletins(): Bulletin[] | null {
+  const [bulletins, setBulletins] = useState<Bulletin[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(PARISHES_ONLINE_API)
+      .then(res => (res.ok ? res.json() : Promise.reject(new Error(`${res.status}`))))
+      .then((json: { data?: { publishDate: string; fileUrl: string }[] }) => {
+        if (cancelled) return;
+        setBulletins(
+          (json.data ?? []).slice(0, 7).map((pub, i) => ({
+            date: formatPublishDate(pub.publishDate),
+            label: i === 0 ? "Current Issue" : "Sunday Bulletin",
+            href: `${PUBLICATION_PAGE_URL}?selectedPublication=${pub.fileUrl}`,
+          }))
+        );
+      })
+      .catch(() => {
+        if (!cancelled) setBulletins([]);
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  return bulletins;
+}
 
 export default function PublicationsContent() {
   const [iframeError, setIframeError] = useState(false);
+  const recentBulletins = useRecentBulletins();
 
   return (
     <>
@@ -132,6 +172,9 @@ export default function PublicationsContent() {
                       title="St. Ann Catholic Church Parish Bulletin"
                       onError={() => setIframeError(true)}
                       allow="fullscreen"
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
                     />
                   </div>
                 ) : (
@@ -201,10 +244,26 @@ export default function PublicationsContent() {
                   <div className="w-8 h-0.5 mb-5" style={{ background: "var(--gold)" }} />
 
                   <div className="flex flex-col gap-2">
-                    {recentBulletins.map((b, i) => (
+                    {recentBulletins === null && (
+                      <p
+                        className="text-sm px-4 py-3"
+                        style={{ fontFamily: "'Crimson Pro', serif", color: "var(--text-mid)" }}
+                      >
+                        Loading recent issues…
+                      </p>
+                    )}
+                    {recentBulletins?.length === 0 && (
+                      <p
+                        className="text-sm px-4 py-3"
+                        style={{ fontFamily: "'Crimson Pro', serif", color: "var(--text-mid)" }}
+                      >
+                        Recent issues are unavailable right now — use the link below to browse all issues on ParishesOnline.
+                      </p>
+                    )}
+                    {(recentBulletins ?? []).map((b, i) => (
                       <a
                         key={i}
-                        href={BULLETIN_URL}
+                        href={b.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl border transition-all duration-150 group hover:border-[var(--gold)]"
@@ -268,7 +327,7 @@ export default function PublicationsContent() {
                     Subscribe to receive the parish bulletin by email each week.
                   </p>
                   <a
-                    href={BULLETIN_URL}
+                    href={SUBSCRIBE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-medium transition-colors duration-200"

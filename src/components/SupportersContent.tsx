@@ -33,7 +33,7 @@ const supporters = [
     photo: publicPath("/supporters/JTLMold.jpg"),
   },
   {
-    name: "KW Fayetteville – Jennifer Tap",
+    name: "KW Fayetteville – Jennifer Tapia",
     address: "639 Executive Pl Ste 100, Fayetteville, NC 28305",
     phone: "910-222-2800",
     photo: publicPath("/supporters/JenniferTap.jpg"),

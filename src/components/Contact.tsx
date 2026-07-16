@@ -255,7 +255,7 @@ export default function Contact() {
                     </span>
                   </a>
                   <a
-                    href="http://www.stanncatholicschool.net"
+                    href="https://www.stanncatholicschool.net"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 group"

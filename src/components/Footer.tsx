@@ -173,6 +173,12 @@ export default function Footer() {
             All rights reserved.
           </p>
           <p
+            className="text-white/30 text-sm"
+            style={{ fontFamily: "'Crimson Pro', serif" }}
+          >
+            Website Created by Tootie Designs LLC
+          </p>
+          <p
             className="text-white/20 text-xs tracking-widest uppercase"
             style={{ fontFamily: "'Cinzel', serif" }}
           >

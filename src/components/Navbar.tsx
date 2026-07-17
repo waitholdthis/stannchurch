@@ -48,6 +48,14 @@ const navLinks: NavLink[] = [
     ],
   },
   {
+    label: "Prayer",
+    href: "/prayer-request",
+    children: [
+      { label: "Prayer Resources", href: "/prayer-resources" },
+      { label: "Prayer Requests", href: "/prayer-request" },
+    ],
+  },
+  {
     label: "Ministries / Organizations",
     href: "/ministries",
     children: [

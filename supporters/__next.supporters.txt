@@ -2,4 +2,4 @@
 2:I[39756,["/stannchurch/_next/static/chunks/05-c3ty_6dwfk.js","/stannchurch/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
 3:I[37457,["/stannchurch/_next/static/chunks/05-c3ty_6dwfk.js","/stannchurch/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"WpqZQkE3qRk37QdoeJn0U"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"qFdA7X5Gr0ygjRFZmMqot"}

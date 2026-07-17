@@ -178,7 +178,7 @@ export default function Footer() {
           >
             Website Created by{" "}
             <a
-              href="https://tootiedesigns.com"
+              href="https://church.tootiedesigns.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[var(--gold-light)] underline underline-offset-2 transition-colors duration-150"

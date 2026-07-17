@@ -39,6 +39,130 @@ body {
   font-size: 18px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  top: 0 !important;
+}
+
+.language-switcher {
+  position: relative;
+  width: 97px;
+  height: 42px;
+  font-family: 'Cinzel', serif;
+}
+
+.language-switcher-button {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: var(--cream);
+  color: var(--navy);
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.language-switcher-button:hover {
+  border-color: var(--gold);
+}
+
+.language-switcher-button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.language-switcher-symbol {
+  display: inline-flex;
+  width: 20px;
+  height: 14px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border-radius: 2px;
+  background: #a32135;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.language-switcher-code {
+  flex: 1;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.language-switcher-chevron {
+  flex: 0 0 auto;
+  color: var(--navy);
+  transition: transform 150ms ease;
+}
+
+.language-switcher-menu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 70;
+  width: 150px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--cream);
+  box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
+}
+
+.language-switcher-option {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.45rem;
+  padding: 0.65rem 0.8rem;
+  color: var(--navy);
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem;
+}
+
+.language-switcher-option + .language-switcher-option {
+  border-top: 1px solid var(--border);
+}
+
+.language-switcher-option:hover,
+.language-switcher-option[aria-selected='true'] {
+  background: var(--gold-pale);
+}
+
+.language-switcher-option span:first-child {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.language-switcher-engine {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+
+iframe.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+@media (max-width: 374px) {
+  .language-switcher {
+    width: 90px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,6 +6,7 @@ import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { publicPath } from "@/lib/publicPath";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 type NavLeaf = { label: string; href: string };
 type NavChild = { label: string; href: string; children?: NavLeaf[] };
@@ -288,7 +289,7 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <div className="leading-tight">
+            <div className="hidden sm:block leading-tight">
               <p
                 className="text-white font-semibold tracking-wider text-sm uppercase"
                 style={{ fontFamily: "'Cinzel', serif" }}
@@ -368,6 +369,8 @@ export default function Navbar() {
           >
             Give Online
           </Link>
+
+          <LanguageSwitcher />
 
           {/* Mobile menu button */}
           <button

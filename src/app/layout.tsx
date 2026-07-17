@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,6 +15,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>{children}</body>
+      <Script id="gtranslate-settings" strategy="afterInteractive">
+        {`window.gtranslateSettings = {
+          default_language: "en",
+          native_language_names: true,
+          detect_browser_language: false,
+          languages: ["en", "es"],
+          wrapper_selector: ".gtranslate_wrapper"
+        };`}
+      </Script>
+      <Script
+        id="gtranslate-widget"
+        src="https://cdn.gtranslate.net/widgets/latest/dropdown.js"
+        strategy="afterInteractive"
+      />
     </html>
   );
 }

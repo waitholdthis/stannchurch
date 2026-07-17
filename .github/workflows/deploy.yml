@@ -30,6 +30,8 @@ jobs:
 
       - name: Build static export
         run: npm run build:pages
+        env:
+          NEXT_PUBLIC_VISITOR_WEB3FORMS_ACCESS_KEY: ${{ secrets.VISITOR_WEB3FORMS_ACCESS_KEY }}
 
       - name: Add .nojekyll
         run: touch out/.nojekyll

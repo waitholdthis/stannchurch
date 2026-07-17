@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { publicPath } from "@/lib/publicPath";
+import VisitorModal from "@/components/VisitorModal";
 
 export default function Hero() {
   return (
@@ -118,6 +119,7 @@ export default function Hero() {
           >
             Our Parish
           </a>
+          <VisitorModal />
         </motion.div>
 
         {/* Quick info bar */}

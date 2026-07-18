@@ -60,6 +60,11 @@ export default function LanguageSwitcher() {
   }, [open]);
 
   function applyLanguage(nextLanguage: Language, attempt = 0) {
+    // GTranslate only loads Google's translate library on pointerenter/focusin
+    // over its wrapper, which is visually hidden here — fire it manually.
+    engineRef.current?.dispatchEvent(new Event("pointerenter"));
+    engineRef.current?.dispatchEvent(new Event("focusin"));
+
     const selector = engineRef.current?.querySelector<HTMLSelectElement>("select");
     const matchingOption = selector
       ? Array.from(selector.options).find(

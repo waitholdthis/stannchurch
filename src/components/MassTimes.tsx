@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 import { Clock, Calendar, Tv, BookOpen } from "lucide-react";
 
 const weekdayMasses = [
@@ -175,14 +176,12 @@ export default function MassTimes() {
                   <p className="text-white/70" style={{ fontFamily: "'Crimson Pro', serif" }}>
                     Sunday 11am on Facebook
                   </p>
-                  <a
-                    href="https://www.facebook.com/StAnnFayettevilleNorthCarolina"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/watch-live"
                     className="inline-block mt-2 text-[var(--gold-light)] text-sm hover:text-white transition-colors duration-150 underline underline-offset-2"
                   >
                     Watch Live →
-                  </a>
+                  </Link>
                 </div>
               </FadeUp>
             </div>

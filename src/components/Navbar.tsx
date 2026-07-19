@@ -26,6 +26,7 @@ const navLinks: NavLink[] = [
       },
       { label: "Bulletin", href: "/publications" },
       { label: "Sermons", href: "/sermons" },
+      { label: "Watch Live", href: "/watch-live" },
       { label: "Photos", href: "/photos" },
     ],
   },

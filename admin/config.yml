@@ -88,3 +88,22 @@ collections:
               - { label: Summary, name: summary, widget: text, required: false }
               - { label: Video link, name: video_url, widget: string, required: false }
               - { label: Upload audio, name: audio_file, widget: file, required: false, media_folder: /public/uploads/sermons, public_folder: /uploads/sermons }
+  - name: livestream
+    label: Watch Live
+    icon: live_tv
+    files:
+      - name: livestream
+        label: Livestream settings
+        file: content/livestream.json
+        format: json
+        fields:
+          - label: Facebook video link
+            name: video_url
+            widget: string
+            required: false
+            hint: 'Paste the full link to the Facebook live video, for example https://www.facebook.com/StAnnFayettevilleNorthCarolina/videos/1234567890. Tip: schedule the live video on Facebook ahead of time, then copy its link here before Sunday. Leave blank to show a "check back soon" message instead of the player.'
+          - label: Message above the player
+            name: note
+            widget: text
+            required: false
+            hint: 'Optional short note shown above the video, such as "Mass begins at 11:00 AM."'

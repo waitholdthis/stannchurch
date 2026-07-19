@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { BookOpen, ExternalLink, Bell, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import managedContent from "../../content/bulletins.json";
+import { publicPath } from "@/lib/publicPath";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -35,6 +37,21 @@ const PARISHES_ONLINE_API =
   "https://f2141mdwk2.execute-api.us-east-1.amazonaws.com/prod/organizations/0018000000Qc0AkAAJ/publications?limit=7&type=Church";
 
 type Bulletin = { date: string; label: string; href: string };
+
+type ManagedBulletin = {
+  title: string;
+  date: string;
+  file?: string;
+  external_url?: string;
+};
+
+const managedBulletins = (managedContent.bulletins as ManagedBulletin[])
+  .filter((bulletin) => bulletin.file || bulletin.external_url)
+  .sort((a, b) => b.date.localeCompare(a.date));
+
+function bulletinHref(bulletin: ManagedBulletin) {
+  return bulletin.external_url || publicPath(bulletin.file || "");
+}
 
 function formatPublishDate(publishDate: string): string {
   const [year, month, day] = publishDate.slice(0, 10).split("-").map(Number);
@@ -68,12 +85,23 @@ function useRecentBulletins(): Bulletin[] | null {
     return () => { cancelled = true; };
   }, []);
 
+  if (managedBulletins.length > 0) {
+    return managedBulletins.map((bulletin, index) => ({
+      date: formatPublishDate(bulletin.date),
+      label: index === 0 ? "Current Issue" : bulletin.title,
+      href: bulletinHref(bulletin),
+    }));
+  }
+
   return bulletins;
 }
 
 export default function PublicationsContent() {
   const [iframeError, setIframeError] = useState(false);
   const recentBulletins = useRecentBulletins();
+  const currentBulletinUrl = managedBulletins.length > 0
+    ? bulletinHref(managedBulletins[0])
+    : BULLETIN_URL;
 
   return (
     <>
@@ -150,7 +178,7 @@ export default function PublicationsContent() {
                     Current Bulletin
                   </h2>
                   <a
-                    href={BULLETIN_URL}
+                    href={currentBulletinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm transition-colors duration-150 hover:underline"
@@ -167,7 +195,7 @@ export default function PublicationsContent() {
                     style={{ borderColor: "var(--border)", height: "clamp(420px, 70vh, 700px)" }}
                   >
                     <iframe
-                      src={BULLETIN_URL}
+                      src={currentBulletinUrl}
                       className="w-full h-full"
                       title="St. Ann Catholic Church Parish Bulletin"
                       onError={() => setIframeError(true)}
@@ -198,7 +226,7 @@ export default function PublicationsContent() {
                         Our bulletins are hosted on ParishesOnline. Click below to read the latest issue.
                       </p>
                       <a
-                        href={BULLETIN_URL}
+                        href={currentBulletinUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-white font-medium transition-all duration-200 shadow-md"

@@ -5,6 +5,18 @@ import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, Clock, CalendarDays, Phone, Mail, Megaphone } from "lucide-react";
 import Link from "next/link";
 import { announcements } from "./announcements-data";
+import managedContent from "../../content/events.json";
+
+type ManagedEvent = {
+  title: string;
+  date: string;
+  start_time: string;
+  end_time?: string;
+  location?: string;
+  description?: string;
+};
+
+const managedEvents = managedContent.events as ManagedEvent[];
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -228,7 +240,14 @@ export default function EventsContent() {
             >
               {cells.map((day, idx) => {
                 const dow = idx % 7;
-                const events = day ? weeklyEvents[dow] ?? [] : [];
+                const recurringEvents = day ? weeklyEvents[dow] ?? [] : [];
+                const dateKey = day
+                  ? `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+                  : "";
+                const datedEvents = managedEvents
+                  .filter((event) => event.date === dateKey)
+                  .map((event) => ({ time: event.start_time, title: event.title, note: event.location }));
+                const events = [...recurringEvents, ...datedEvents];
                 return (
                   <div
                     key={idx}
@@ -286,6 +305,36 @@ export default function EventsContent() {
           </FadeUp>
         </div>
       </section>
+
+      {/* Staff-managed dated events */}
+      {managedEvents.length > 0 && (
+        <section className="py-20 px-6" style={{ background: "var(--cream)" }} aria-labelledby="upcoming-events-heading">
+          <div className="max-w-5xl mx-auto">
+            <FadeUp>
+              <div className="text-center mb-10">
+                <span className="text-[var(--gold)] text-xs tracking-[0.3em] uppercase" style={{ fontFamily: "'Cinzel', serif" }}>Save the Date</span>
+                <h2 id="upcoming-events-heading" className="mt-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 300, color: "var(--navy)" }}>Upcoming Parish Events</h2>
+              </div>
+            </FadeUp>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {[...managedEvents].sort((a, b) => a.date.localeCompare(b.date)).map((event, index) => (
+                <FadeUp key={`${event.date}-${event.title}`} delay={index * 0.05}>
+                  <article className="rounded-2xl border p-6 h-full" style={{ borderColor: "var(--border)", background: "var(--cream-mid)" }}>
+                    <p className="text-xs tracking-widest uppercase mb-2" style={{ fontFamily: "'Cinzel', serif", color: "var(--gold)" }}>
+                      {new Date(`${event.date}T12:00:00`).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+                    </p>
+                    <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.45rem", fontWeight: 500, color: "var(--navy)" }}>{event.title}</h3>
+                    <p className="mt-2" style={{ fontFamily: "'Crimson Pro', serif", color: "var(--text-mid)" }}>
+                      {event.start_time}{event.end_time ? ` – ${event.end_time}` : ""}{event.location ? ` · ${event.location}` : ""}
+                    </p>
+                    {event.description && <p className="mt-3 leading-relaxed" style={{ fontFamily: "'Crimson Pro', serif", color: "var(--text-mid)" }}>{event.description}</p>}
+                  </article>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Weekly Schedule */}
       <section className="py-20 px-6" style={{ background: "var(--cream-mid)" }}>

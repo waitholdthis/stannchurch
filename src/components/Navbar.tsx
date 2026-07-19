@@ -25,6 +25,7 @@ const navLinks: NavLink[] = [
         children: [{ label: "Church Windows", href: "/Church-Windows" }],
       },
       { label: "Bulletin", href: "/publications" },
+      { label: "Sermons", href: "/sermons" },
       { label: "Photos", href: "/photos" },
     ],
   },

@@ -1,0 +1,90 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: waitholdthis/stannchurch
+  branch: main
+  auth_methods: [token]
+  commit_messages:
+    update: 'Update {{collection}} in parish CMS'
+    uploadMedia: 'Upload parish media: {{path}}'
+    deleteMedia: 'Remove parish media: {{path}}'
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: announcements
+    label: Announcements
+    icon: campaign
+    files:
+      - name: announcements
+        label: Parish announcements
+        file: content/announcements.json
+        format: json
+        fields:
+          - label: Announcements
+            name: announcements
+            widget: list
+            summary: '{{fields.title}} — {{fields.date}}'
+            fields:
+              - { label: Headline, name: title, widget: string }
+              - { label: Display date, name: date, widget: string, required: false, hint: 'Example: Sunday, August 2' }
+              - { label: Message, name: body, widget: text }
+  - name: events
+    label: Events
+    icon: event
+    files:
+      - name: events
+        label: Parish events
+        file: content/events.json
+        format: json
+        fields:
+          - label: Events
+            name: events
+            widget: list
+            summary: '{{fields.date}} — {{fields.title}}'
+            fields:
+              - { label: Event name, name: title, widget: string }
+              - { label: Date, name: date, widget: datetime, time_format: false, format: 'YYYY-MM-DD' }
+              - { label: Start time, name: start_time, widget: string, hint: 'Example: 6:30 PM' }
+              - { label: End time, name: end_time, widget: string, required: false }
+              - { label: Location, name: location, widget: string, required: false }
+              - { label: Description, name: description, widget: text, required: false }
+  - name: bulletins
+    label: Bulletins
+    icon: menu_book
+    files:
+      - name: bulletins
+        label: Parish bulletins
+        file: content/bulletins.json
+        format: json
+        fields:
+          - label: Bulletins
+            name: bulletins
+            widget: list
+            summary: '{{fields.date}} — {{fields.title}}'
+            fields:
+              - { label: Title, name: title, widget: string, default: 'Sunday Bulletin' }
+              - { label: Publication date, name: date, widget: datetime, time_format: false, format: 'YYYY-MM-DD' }
+              - { label: Upload PDF, name: file, widget: file, required: false, media_folder: /public/uploads/bulletins, public_folder: /uploads/bulletins }
+              - { label: Or paste an external link, name: external_url, widget: string, required: false }
+  - name: sermons
+    label: Sermons
+    icon: record_voice_over
+    files:
+      - name: sermons
+        label: Sermon archive
+        file: content/sermons.json
+        format: json
+        fields:
+          - label: Sermons
+            name: sermons
+            widget: list
+            summary: '{{fields.date}} — {{fields.title}}'
+            fields:
+              - { label: Sermon title, name: title, widget: string }
+              - { label: Date, name: date, widget: datetime, time_format: false, format: 'YYYY-MM-DD' }
+              - { label: Speaker, name: speaker, widget: string }
+              - { label: Summary, name: summary, widget: text, required: false }
+              - { label: Video link, name: video_url, widget: string, required: false }
+              - { label: Upload audio, name: audio_file, widget: file, required: false, media_folder: /public/uploads/sermons, public_folder: /uploads/sermons }

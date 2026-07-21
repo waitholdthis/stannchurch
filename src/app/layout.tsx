@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   title: "St. Ann Catholic Church — Fayetteville, NC",
   description:
     "A vibrant, growing, and engaged Catholic community in Fayetteville, NC. Join us for Mass, Faith Formation, and parish life.",
+  icons: {
+    icon: {
+      url: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/StAnnChurch.webp`,
+      type: "image/webp",
+    },
+  },
   referrer: "strict-origin-when-cross-origin",
 };
 

@@ -70,7 +70,7 @@ export default function Footer() {
             <div className="mt-5 flex flex-col items-center w-fit mx-auto sm:mx-0 sm:mt-3 sm:ml-10 sm:inline-flex">
               <div className="rounded-2xl bg-white p-3 shadow-md">
                 <Image
-                  src={publicPath("/StAnnChurch_QR_Code.png")}
+                  src={publicPath("/New_QR_StAnnChurch.png")}
                   alt="QR code for St. Ann Catholic Church"
                   width={176}
                   height={176}

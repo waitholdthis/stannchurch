@@ -147,6 +147,16 @@ export default function AskStAnn() {
   }, [open]);
 
   useEffect(() => {
+    if (!open || !window.matchMedia("(max-width: 639px)").matches) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -178,17 +188,17 @@ export default function AskStAnn() {
   }
 
   return (
-    <aside className="fixed bottom-5 right-4 sm:bottom-7 sm:right-7 z-[80] flex flex-col items-end gap-3 print:hidden">
+    <aside className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 sm:bottom-7 sm:right-7 z-[80] flex flex-col items-end gap-3 print:hidden">
       {open && (
         <section
           id="ask-st-ann-panel"
           role="dialog"
           aria-modal="false"
           aria-labelledby="ask-st-ann-title"
-          className="w-[min(390px,calc(100vw-2rem))] h-[min(610px,calc(100vh-7rem))] rounded-2xl overflow-hidden border shadow-2xl flex flex-col"
+          className="fixed inset-0 w-full h-[100dvh] sm:static sm:w-[min(390px,calc(100vw-2rem))] sm:h-[min(610px,calc(100dvh-7rem))] rounded-none sm:rounded-2xl overflow-hidden border-0 sm:border shadow-2xl flex flex-col"
           style={{ borderColor: "var(--border)", background: "var(--cream)" }}
         >
-          <header className="px-5 py-4 flex items-center gap-3" style={{ background: "var(--navy)" }}>
+          <header className="px-4 sm:px-5 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 sm:py-4 flex items-center gap-3" style={{ background: "var(--navy)" }}>
             <span className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(184,146,42,0.2)" }}>
               <Church className="w-5 h-5" style={{ color: "var(--gold-light)" }} aria-hidden="true" />
             </span>
@@ -201,11 +211,11 @@ export default function AskStAnn() {
             </button>
           </header>
 
-          <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4" aria-live="polite" aria-label="Conversation">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 sm:px-4 py-4 sm:py-5 space-y-4" aria-live="polite" aria-label="Conversation">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className="max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-relaxed"
+                  className="max-w-[92%] sm:max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-relaxed"
                   style={{
                     background: message.role === "user" ? "var(--navy)" : "var(--cream-mid)",
                     color: message.role === "user" ? "white" : "var(--text-mid)",
@@ -238,12 +248,12 @@ export default function AskStAnn() {
 
           <form onSubmit={submit} className="p-3 border-t flex items-center gap-2" style={{ borderColor: "var(--border)", background: "white" }}>
             <label htmlFor="ask-st-ann-input" className="sr-only">Ask a question about St. Ann</label>
-            <input ref={inputRef} id="ask-st-ann-input" value={question} onChange={(event) => setQuestion(event.target.value)} maxLength={240} placeholder="Ask about Mass, events, sacraments…" autoComplete="off" className="min-w-0 flex-1 rounded-full border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[var(--gold)]" style={{ borderColor: "var(--border)", color: "var(--navy)" }} />
+            <input ref={inputRef} id="ask-st-ann-input" value={question} onChange={(event) => setQuestion(event.target.value)} maxLength={240} placeholder="Ask about Mass, events, sacraments…" autoComplete="off" className="min-w-0 flex-1 rounded-full border px-4 py-3 text-base sm:text-sm outline-none focus:ring-2 focus:ring-[var(--gold)]" style={{ borderColor: "var(--border)", color: "var(--navy)" }} />
             <button type="submit" disabled={!question.trim()} aria-label="Send question" className="w-11 h-11 rounded-full flex items-center justify-center text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-opacity" style={{ background: "var(--gold)" }}>
               <Send className="w-4 h-4" aria-hidden="true" />
             </button>
           </form>
-          <p className="px-4 pb-3 text-center text-[11px]" style={{ color: "var(--muted)", background: "white" }}>For urgent pastoral needs, call the parish office.</p>
+          <p className="px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-center text-[11px]" style={{ color: "var(--muted)", background: "white" }}>For urgent pastoral needs, call the parish office.</p>
         </section>
       )}
 
@@ -253,7 +263,7 @@ export default function AskStAnn() {
         aria-expanded={open}
         aria-controls="ask-st-ann-panel"
         aria-label={open ? "Close Ask St. Ann" : "Open Ask St. Ann"}
-        className="group rounded-full pl-4 pr-5 py-3.5 flex items-center gap-2.5 text-white shadow-xl cursor-pointer transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--gold-light)]"
+        className={`${open ? "hidden sm:flex" : "flex"} group rounded-full pl-4 pr-5 py-3.5 items-center gap-2.5 text-white shadow-xl cursor-pointer transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--gold-light)]`}
         style={{ background: "var(--gold)" }}
       >
         {open ? <X className="w-5 h-5" aria-hidden="true" /> : <MessageCircle className="w-5 h-5" aria-hidden="true" />}

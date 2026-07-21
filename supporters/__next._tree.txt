@@ -1,2 +1,2 @@
-:HL["/stannchurch/_next/static/chunks/152as1i1fap79.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"supporters","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"cN07ONUP2g8-SfScF3Kj9"}
+:HL["/stannchurch/_next/static/chunks/0iepii_8_bb3f.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"supporters","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"nsuCiawYdk_NhWVSe_8zz"}

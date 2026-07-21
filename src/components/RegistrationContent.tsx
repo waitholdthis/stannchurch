@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { FileDown, Phone, Mail, MapPin, CheckCircle2, Users } from "lucide-react";
 import Link from "next/link";
+import { publicPath } from "@/lib/publicPath";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -174,9 +175,8 @@ export default function RegistrationContent() {
           <FadeUp delay={0.15}>
             <div className="mt-10 text-center">
               <a
-                href="https://www.stanncatholicchurch.org/Registration"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={publicPath("/documents/parish-registration-form.pdf")}
+                download="St-Ann-Parish-Registration-Form.pdf"
                 className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-white font-medium transition-all duration-200 shadow-lg group"
                 style={{
                   background: "var(--gold)",

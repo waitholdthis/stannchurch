@@ -144,7 +144,7 @@ export default function PrayerRequestContent() {
       </section>
 
       {/* Form */}
-      <section className="py-20 px-6" style={{ background: "var(--cream)" }}>
+      <section className="py-20 px-6" style={{ background: "var(--cream-mid)" }}>
         <div className="max-w-2xl mx-auto">
           <FadeUp>
             <div className="text-center mb-10">
@@ -172,7 +172,7 @@ export default function PrayerRequestContent() {
           <FadeUp delay={0.1}>
             <div
               className="rounded-2xl border p-8 sm:p-10"
-              style={{ background: "var(--cream-mid)", borderColor: "var(--border)" }}
+              style={{ background: "var(--cream)", borderColor: "var(--border)" }}
             >
               {status === "sent" ? (
                 <motion.div
@@ -387,7 +387,7 @@ export default function PrayerRequestContent() {
       </section>
 
       {/* Back nav */}
-      <section className="py-10 px-6" style={{ background: "var(--cream-mid)" }}>
+      <section className="py-10 px-6" style={{ background: "var(--cream)" }}>
         <div className="max-w-4xl mx-auto flex flex-wrap gap-4 justify-center">
           <Link
             href="/prayer-resources"

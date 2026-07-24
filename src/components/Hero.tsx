@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { publicPath } from "@/lib/publicPath";
 import VisitorModal from "@/components/VisitorModal";
 
@@ -119,6 +120,13 @@ export default function Hero() {
           >
             Our Parish
           </a>
+          <Link
+            href="/virtual-tour"
+            className="inline-flex items-center gap-2 px-8 py-4 border border-white/30 hover:border-white/60 text-white hover:bg-white/5 rounded-full transition-all duration-200 text-base"
+            style={{ fontFamily: "'Cinzel', serif", letterSpacing: "0.05em" }}
+          >
+            Take a Virtual Tour
+          </Link>
           <VisitorModal />
         </motion.div>
 

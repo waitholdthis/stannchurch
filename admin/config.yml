@@ -107,3 +107,22 @@ collections:
             widget: text
             required: false
             hint: 'Optional short note shown above the video, such as "Mass begins at 11:00 AM."'
+  - name: virtual_tour
+    label: Virtual Tour
+    icon: threesixty
+    files:
+      - name: virtual_tour
+        label: Virtual tour settings
+        file: content/virtual-tour.json
+        format: json
+        fields:
+          - label: Kuula tour link
+            name: tour_url
+            widget: string
+            required: false
+            hint: 'Paste the Kuula share link for the 3D tour, for example https://kuula.co/share/collection/7abcd?fs=1&vr=1. In Kuula click Share, then Embed, and copy the address inside src="...". Leave blank to show a "coming soon" message instead of the tour.'
+          - label: Message above the tour
+            name: note
+            widget: text
+            required: false
+            hint: 'Optional short note shown above the tour, such as "Drag to look around, and click the arrows to move between rooms."'

@@ -128,7 +128,7 @@ export default function Contact() {
             {/* Phone & Fax */}
             <FadeUp delay={0.1}>
               <div
-                className="rounded-2xl p-7 border grid grid-cols-2 gap-6"
+                className="rounded-2xl p-7 border grid grid-cols-1 sm:grid-cols-2 gap-6"
                 style={{ background: "var(--cream)", borderColor: "var(--border)" }}
               >
                 <div className="flex gap-4">
